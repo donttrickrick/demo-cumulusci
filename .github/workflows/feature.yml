@@ -29,7 +29,7 @@ jobs:
       - name: Build Org and Execute Tests
         run: |
           cci flow run ci_feature --org dev
-          cci task run robot --org dev -o vars BROWSER:headlesschrome --exclude e2e_test
+        # cci task run robot --org dev -o vars BROWSER:headlesschrome --exclude e2e_test
       - name: Delete Scratch Org
         if: ${{ always() }}
         run: |
