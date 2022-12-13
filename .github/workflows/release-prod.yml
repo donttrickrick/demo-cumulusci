@@ -1,16 +1,18 @@
-name: Package Test
+name: PROD
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - prod
 env:
     CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
     CUMULUSCI_SERVICE_github: ${{ secrets.CUMULUSCI_SERVICE_github }}
-    SFDX_CLIENT_ID: ${{ secrets.SFDX_CLIENT_ID }}
+    CUMULUSCI_ORG_prod: '{"username": "data.admin@cabital.com", "instance_url": "https://cabital.my.salesforce.com", "config_file": "orgs/dev.json"}'
+    SFDX_CLIENT_ID: ${{ secrets.SFDX_CLIENT_ID_PROD }}
     SFDX_HUB_KEY: ${{ secrets.SFDX_HUB_KEY }}
 jobs:
-  beta_test:
-    name: "Beta Test"
-    runs-on: sfdc-ubuntu-latest
+  release_unlocked:
+    name: "Promote and Install Package"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install sfdx
@@ -28,10 +30,7 @@ jobs:
         run: |
           python -m pip install -U pip
           pip install cumulusci
-      - name: Build Org and Execute Tests
+      - name: Release unlocked package
         run: |
-          cci flow run ci_beta --org beta
-      - name: Delete Scratch Org
-        if: ${{ always() }}
-        run: |
-          cci org scratch_delete beta
+          cci flow run release_unlocked_production --org prod
+          cci flow run ci_release --org prod
