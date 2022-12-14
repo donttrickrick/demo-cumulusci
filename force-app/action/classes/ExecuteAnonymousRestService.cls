@@ -1,4 +1,3 @@
-// https://digi-trade.atlassian.net/browse/CRM-312
 @RestResource(urlMapping='/v1.0/executeAnonymous')
 global with sharing class ExecuteAnonymousRestService {
     @HttpPost
