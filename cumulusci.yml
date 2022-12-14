@@ -44,8 +44,6 @@ flows:
                 task: assign_permission_sets
                 options:
                     api_names: Custom_Permission_Feature_Impersonate_Salesforce
-            4:
-                task: create_test_user
 
     create_test_user: 
         steps:
