@@ -26,12 +26,18 @@ tasks:
         options:
             command: "force:user:create --definitionfile config/user-def.json"
 
+    delete_environment_variable:
+        description: Delete env variable.
+        class_path: cumulusci.tasks.apex.anon.AnonymousApexTask
+        options:
+            apex: >
+                DELETE [SELECT Id FROM Environment_Variable__c];
+
     import_environment_variable:
-        description: Creates a test user for testing permissions.
+        description: Import env variable.
         class_path: cumulusci.tasks.sfdx.SFDXOrgTask
         options:
             command: "force:data:tree:import -f data-tree/Environment_Variable__c/Environment_Variable__c.json"
-   
 
 flows:
     ci_unlocked_beta:
@@ -39,8 +45,10 @@ flows:
             1:
                 flow: ci_beta
             2:
+                task: delete_environment_variable
+            3: 
                 task: import_environment_variable
-            3:
+            4:
                 task: assign_permission_sets
                 options:
                     api_names: Custom_Permission_Feature_Impersonate_Salesforce
