@@ -6,7 +6,7 @@ on:
 env:
     CUMULUSCI_KEYCHAIN_CLASS: cumulusci.core.keychain.EnvironmentProjectKeychain
     CUMULUSCI_SERVICE_github: ${{ secrets.CUMULUSCI_SERVICE_github }}
-    CUMULUSCI_ORG_sit: '{"username": "rick@yeah.man", "instance_url": "https://rickyeahman-dev-ed.my.salesforce.com", "config_file": "orgs/dev.json"}'
+    CUMULUSCI_ORG_sit: '{"username": "rick@xyz.yang", "instance_url": "https://xyzyang-dev-ed.develop.my.salesforce.com", "config_file": "orgs/dev.json"}'
     SFDX_CLIENT_ID: ${{ secrets.SFDX_CLIENT_ID_SIT }}
     SFDX_HUB_KEY: ${{ secrets.SFDX_HUB_KEY }}
 jobs:
